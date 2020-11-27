@@ -21,10 +21,12 @@ def login():
             return f'Login success for user {un} with password of length: {len(pwd)}!'
 
         if request.json:
-            user_name = request.json["username"]
+            user_name = request.json['username']
             pwd = request.json["password"]
             return login_answer(user_name, pwd), 200
         elif request.form:
+            # .form[''] returns error when not present (same with .args[''] or .json[''])
+            # .get('') returns None when not present
             user_name = request.form["username"]
             pwd = request.form["password"]
             return login_answer(user_name, pwd), 200

@@ -16,8 +16,12 @@ def login():
             "login.html", title="MadCompany", heading1="MadCompany prediction model"
         )
     else:
-        user_name = request.form["user_name"]
-        pwd_len = len(request.form["pwd"])
+        if request.json:
+            user_name = request.json["username"]
+            pwd_len = len(request.json["password"])
+        elif request.form:
+            user_name = request.form["username"]
+            pwd_len = len(request.form["password"])
         return f"Login success for user {user_name} with password of length: {pwd_len}!"
 
 
